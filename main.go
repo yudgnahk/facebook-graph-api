@@ -51,6 +51,13 @@ func main() {
 	//
 	//fmt.Println(longLivedTokenResponse.AccessToken)
 
+	me, err := c1.GetMe()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(me.ID, me.Name)
+
 	pageClient := page.NewPageClient(c1)
 
 	fields := []models.GetConversationsFields{
@@ -78,11 +85,28 @@ func main() {
 			models.IDGetConversationField,
 		}
 
-		messages, err := pageClient.GetConversation(conversation.Id, conversationFields...)
+		messages, err := pageClient.GetConversationByID(conversation.Id, conversationFields...)
 		if err != nil {
 			panic(err)
 		}
 
 		fmt.Println(messages.Data[0].Message)
 	}
+
+	//Get Duy Khang user profile
+	userFields := []models.GetUserField{
+		models.IDGetUserField,
+		models.NameGetUserField,
+		models.PictureGetUserField.WithAttributes(map[models.PictureAttribute]string{
+			models.WidthPictureAttribute:  "1000",
+			models.HeightPictureAttribute: "1000",
+		}),
+	}
+
+	kelvin, err := pageClient.GetUser("100000676495118", userFields...)
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(kelvin.Picture.Data.Url)
 }

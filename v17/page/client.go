@@ -7,7 +7,8 @@ import (
 
 type PageClient interface {
 	GetConversations(fields ...models.GetConversationsFields) (*models.GetConversationsResponse, error)
-	GetConversation(conversationID string, fields ...models.GetConversationFields) (*models.GetConversationResponse, error)
+	GetConversationByID(conversationID string, fields ...models.GetConversationFields) (*models.GetConversationResponse, error)
+	GetUser(userID string, fields ...models.GetUserField) (*models.GetUserResponse, error)
 }
 
 type pageClient struct {

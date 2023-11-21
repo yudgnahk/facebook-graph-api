@@ -31,11 +31,8 @@ func (c *pageClient) GetConversations(fields ...models.GetConversationsFields) (
 		return nil, err
 	}
 
-	fmt.Println(request.URL.String())
-
 	var response models.GetConversationsResponse
 	err = httputils.Execute(request, &response)
-
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +40,7 @@ func (c *pageClient) GetConversations(fields ...models.GetConversationsFields) (
 	return &response, nil
 }
 
-func (c *pageClient) GetConversation(conversationID string, fields ...models.GetConversationFields) (*models.GetConversationResponse, error) {
+func (c *pageClient) GetConversationByID(conversationID string, fields ...models.GetConversationFields) (*models.GetConversationResponse, error) {
 	url := c.PrepareUrl(fmt.Sprintf(constants.GetConversationEndpoint, conversationID), http.MethodGet)
 
 	if len(fields) > 0 {
@@ -62,8 +59,6 @@ func (c *pageClient) GetConversation(conversationID string, fields ...models.Get
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println(request.URL.String())
 
 	var response models.GetConversationResponse
 	err = httputils.Execute(request, &response)

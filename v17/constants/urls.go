@@ -7,6 +7,9 @@ const (
 	GetMeEndpoint             = "me"
 	GetAccountsEndpoint       = "me/accounts"
 	GetLongLivedTokenEndpoint = "oauth/access_token"
+
+	GetUserEndpoint = "%v"
+
 	// GetConversationsEndpoint is the endpoint for getting conversations.
 	GetConversationsEndpoint = "%v/conversations"
 	GetConversationEndpoint  = "%v/messages"

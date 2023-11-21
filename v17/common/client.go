@@ -19,6 +19,7 @@ type Client struct {
 }
 
 type IClient interface {
+	GetMe() (*models.GetMeResponse, error)
 	GetLongLivedToken() (*models.GetLongLivedTokenResponse, error)
 	PrepareUrl(url, method string) string
 }
