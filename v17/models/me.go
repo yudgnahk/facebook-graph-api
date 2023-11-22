@@ -30,3 +30,13 @@ type GetLongLivedTokenResponse struct {
 	TokenType   string `json:"token_type"`
 	ExpiresIn   int    `json:"expires_in"`
 }
+
+type BatchRequest struct {
+	Method      string `json:"method"`
+	RelativeUrl string `json:"relative_url"`
+}
+
+type BatchResponse struct {
+	Code int    `json:"code"`
+	Body string `json:"body"`
+}

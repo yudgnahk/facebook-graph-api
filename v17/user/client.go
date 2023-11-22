@@ -13,6 +13,7 @@ type userClient struct {
 type UserClient interface {
 	GetMe() (*models.GetMeResponse, error)
 	GetAccounts() (*models.GetAccountsResponse, error)
+	BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error)
 }
 
 // NewUserClient returns a new facebook API client.

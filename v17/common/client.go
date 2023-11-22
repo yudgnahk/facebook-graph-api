@@ -22,6 +22,7 @@ type IClient interface {
 	GetMe() (*models.GetMeResponse, error)
 	GetLongLivedToken() (*models.GetLongLivedTokenResponse, error)
 	PrepareUrl(url, method string) string
+	BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error)
 }
 
 // NewClient returns a new facebook API client.
