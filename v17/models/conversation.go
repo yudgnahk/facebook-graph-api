@@ -3,19 +3,51 @@ package models
 type GetConversationsResponse struct {
 	Data []struct {
 		MessageCount int `json:"message_count"`
-		UnreadCount  int `json:"unread_count"`
 		Participants struct {
 			Data []struct {
-				Name  string `json:"name"`
-				Email string `json:"email"`
-				Id    string `json:"id"`
+				Name string `json:"name"`
+				ID   string `json:"id"`
 			} `json:"data"`
 		} `json:"participants"`
-		UpdatedTime string `json:"updated_time"`
+		UnreadCount int `json:"unread_count"`
 		Messages    struct {
 			Data []struct {
-				Message string `json:"message"`
-				Id      string `json:"id"`
+				CreatedTime string `json:"created_time"`
+				Message     string `json:"message"`
+				Attachments struct {
+					Data []struct {
+						ImageData struct {
+							Width           int    `json:"width"`
+							Height          int    `json:"height"`
+							MaxWidth        int    `json:"max_width"`
+							MaxHeight       int    `json:"max_height"`
+							URL             string `json:"url"`
+							PreviewURL      string `json:"preview_url"`
+							ImageType       int    `json:"image_type"`
+							RenderAsSticker bool   `json:"render_as_sticker"`
+						} `json:"image_data,omitempty"`
+						VideoData struct {
+							Width      int    `json:"width"`
+							Height     int    `json:"height"`
+							Length     int    `json:"length"`
+							VideoType  int    `json:"video_type"`
+							URL        string `json:"url"`
+							PreviewURL string `json:"preview_url"`
+							Rotation   int    `json:"rotation"`
+						} `json:"video_data,omitempty"`
+						FileURL string `json:"file_url,omitempty"`
+						ID      string `json:"id"`
+					} `json:"data"`
+					Paging struct {
+						Cursors struct {
+							Before string `json:"before"`
+							After  string `json:"after"`
+						} `json:"cursors"`
+						Next string `json:"next"`
+					} `json:"paging"`
+				} `json:"attachments,omitempty"`
+				ID      string `json:"id"`
+				Sticker string `json:"sticker,omitempty"`
 			} `json:"data"`
 			Paging struct {
 				Cursors struct {
@@ -25,7 +57,7 @@ type GetConversationsResponse struct {
 				Next string `json:"next"`
 			} `json:"paging"`
 		} `json:"messages"`
-		Id string `json:"id"`
+		ID string `json:"id"`
 	} `json:"data"`
 	Paging struct {
 		Cursors struct {
@@ -37,26 +69,55 @@ type GetConversationsResponse struct {
 
 type GetConversationResponse struct {
 	Data []struct {
-		Message string `json:"message"`
-		From    struct {
-			Name  string `json:"name"`
-			Email string `json:"email"`
-			Id    string `json:"id"`
+		Message     string `json:"message"`
+		CreatedTime string `json:"created_time"`
+		Id          string `json:"id"`
+		From        struct {
+			Name string `json:"name"`
+			Id   string `json:"id"`
 		} `json:"from"`
-		To struct {
+		Attachments struct {
 			Data []struct {
-				Name  string `json:"name"`
-				Email string `json:"email"`
-				Id    string `json:"id"`
+				FileUrl   string `json:"file_url,omitempty"`
+				Name      string `json:"name"`
+				Size      int    `json:"size"`
+				Id        string `json:"id"`
+				VideoData struct {
+					Width      int    `json:"width"`
+					Height     int    `json:"height"`
+					Length     int    `json:"length"`
+					VideoType  int    `json:"video_type"`
+					Url        string `json:"url"`
+					PreviewUrl string `json:"preview_url"`
+					Rotation   int    `json:"rotation"`
+				} `json:"video_data,omitempty"`
+				ImageData struct {
+					Width           int    `json:"width"`
+					Height          int    `json:"height"`
+					MaxWidth        int    `json:"max_width"`
+					MaxHeight       int    `json:"max_height"`
+					Url             string `json:"url"`
+					PreviewUrl      string `json:"preview_url"`
+					ImageType       int    `json:"image_type"`
+					RenderAsSticker bool   `json:"render_as_sticker"`
+				} `json:"image_data,omitempty"`
 			} `json:"data"`
-		} `json:"to"`
-		Id string `json:"id"`
+			Paging struct {
+				Cursors struct {
+					Before string `json:"before"`
+					After  string `json:"after"`
+				} `json:"cursors"`
+				Next string `json:"next"`
+			} `json:"paging"`
+		} `json:"attachments,omitempty"`
+		Sticker string `json:"sticker,omitempty"`
 	} `json:"data"`
 	Paging struct {
 		Cursors struct {
 			Before string `json:"before"`
 			After  string `json:"after"`
 		} `json:"cursors"`
+		Next string `json:"next"`
 	} `json:"paging"`
 }
 
