@@ -7,22 +7,24 @@ type GetMeResponse struct {
 
 type GetAccountsResponse struct {
 	Data []struct {
-		AccessToken  string `json:"access_token"`
-		Category     string `json:"category"`
-		CategoryList []struct {
-			Id   string `json:"id"`
-			Name string `json:"name"`
-		} `json:"category_list"`
-		Name  string   `json:"name"`
-		ID    string   `json:"id"`
-		Tasks []string `json:"tasks"`
+		Picture struct {
+			Data struct {
+				Height       int    `json:"height"`
+				IsSilhouette bool   `json:"is_silhouette"`
+				Url          string `json:"url"`
+				Width        int    `json:"width"`
+			} `json:"data"`
+		} `json:"picture,omitempty"`
+		Id          string `json:"id,omitempty"`
+		Name        string `json:"name,omitempty"`
+		AccessToken string `json:"access_token,omitempty"`
 	} `json:"data"`
 	Paging struct {
 		Cursors struct {
 			Before string `json:"before"`
 			After  string `json:"after"`
-		} `json:"cursors"`
-	} `json:"paging"`
+		} `json:"cursors,omitempty"`
+	} `json:"paging,omitempty"`
 }
 
 type GetLongLivedTokenResponse struct {
