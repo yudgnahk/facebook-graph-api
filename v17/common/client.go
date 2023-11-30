@@ -49,6 +49,8 @@ func (c *Client) PrepareUrl(url, method string) string {
 		}
 
 		finalURL += "access_token=" + c.AccessToken + constants.ParametersForGetRequest
+	case http.MethodPost:
+		finalURL += "?access_token=" + c.AccessToken
 	}
 
 	return finalURL
