@@ -14,6 +14,10 @@ type GetConversationsResponse struct {
 			Data []struct {
 				CreatedTime string `json:"created_time"`
 				Message     string `json:"message,omitempty"`
+				From        struct {
+					Name string `json:"name"`
+					ID   string `json:"id"`
+				}
 				Attachments struct {
 					Data []struct {
 						ImageData struct {
