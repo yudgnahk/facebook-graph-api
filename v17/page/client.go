@@ -10,6 +10,8 @@ type PageClient interface {
 	GetConversationByID(conversationID string, fields ...models.GetConversationFields) (*models.GetConversationResponse, error)
 	GetUser(userID string, fields ...models.GetUserField) (*models.GetUserResponse, error)
 	BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error)
+	GetConversationsEndpoint() string
+	SendMessage(recipientID string, message string) error
 }
 
 type pageClient struct {

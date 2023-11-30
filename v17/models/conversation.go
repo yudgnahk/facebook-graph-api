@@ -37,7 +37,7 @@ type GetConversationsResponse struct {
 						} `json:"video_data,omitempty"`
 						FileURL string `json:"file_url,omitempty"`
 						ID      string `json:"id"`
-					} `json:"data"`
+					} `json:"data,omitempty"`
 					Paging struct {
 						Cursors struct {
 							Before string `json:"before"`
@@ -79,9 +79,9 @@ type GetConversationResponse struct {
 		Attachments struct {
 			Data []struct {
 				FileUrl   string `json:"file_url,omitempty"`
-				Name      string `json:"name"`
-				Size      int    `json:"size"`
-				Id        string `json:"id"`
+				Name      string `json:"name,omitempty"`
+				Size      int    `json:"size,omitempty"`
+				Id        string `json:"id,omitempty"`
 				VideoData struct {
 					Width      int    `json:"width"`
 					Height     int    `json:"height"`
@@ -104,14 +104,14 @@ type GetConversationResponse struct {
 			} `json:"data"`
 			Paging struct {
 				Cursors struct {
-					Before string `json:"before"`
-					After  string `json:"after"`
-				} `json:"cursors"`
-				Next string `json:"next"`
-			} `json:"paging"`
+					Before string `json:"before,omitempty"`
+					After  string `json:"after,omitempty"`
+				} `json:"cursors,omitempty"`
+				Next string `json:"next,omitempty"`
+			} `json:"paging,omitempty"`
 		} `json:"attachments,omitempty"`
 		Sticker string `json:"sticker,omitempty"`
-	} `json:"data"`
+	} `json:"data,omitempty"`
 	Paging struct {
 		Cursors struct {
 			Before string `json:"before"`
@@ -143,3 +143,12 @@ const (
 	CreatedTimeGetConversationField GetConversationFields = "created_time"
 	IDGetConversationField          GetConversationFields = "id"
 )
+
+type SendMessageRequest struct {
+	Recipient struct {
+		ID string `json:"id"`
+	} `json:"recipient"`
+	Message struct {
+		Text string `json:"text"`
+	} `json:"message"`
+}
