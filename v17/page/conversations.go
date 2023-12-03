@@ -8,10 +8,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/yudgnahk/facebook-graph-api/utils"
-	"github.com/yudgnahk/facebook-graph-api/v17/constants"
-	"github.com/yudgnahk/facebook-graph-api/v17/models"
 	httputils "github.com/yudgnahk/go-common-utils/http"
+	"github.com/yudgnahk/gofacebook/utils"
+	"github.com/yudgnahk/gofacebook/v17/constants"
+	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 func (c *pageClient) GetConversations(fields ...models.GetConversationsFields) (*models.GetConversationsResponse, error) {

@@ -1,10 +1,11 @@
 package common
 
 import (
-	"github.com/yudgnahk/facebook-graph-api/v17/constants"
-	"github.com/yudgnahk/facebook-graph-api/v17/models"
-	httputils "github.com/yudgnahk/go-common-utils/http"
 	"net/http"
+
+	httputils "github.com/yudgnahk/go-common-utils/http"
+	"github.com/yudgnahk/gofacebook/v17/constants"
+	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 func (c *Client) GetMe() (*models.GetMeResponse, error) {

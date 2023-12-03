@@ -1,8 +1,8 @@
 package user
 
 import (
-	"github.com/yudgnahk/facebook-graph-api/v17/common"
-	"github.com/yudgnahk/facebook-graph-api/v17/models"
+	"github.com/yudgnahk/gofacebook/v17/common"
+	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 // userClient is a client for the personal facebook API.

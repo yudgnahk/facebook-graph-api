@@ -1,8 +1,8 @@
 package page
 
 import (
-	"github.com/yudgnahk/facebook-graph-api/v17/common"
-	"github.com/yudgnahk/facebook-graph-api/v17/models"
+	"github.com/yudgnahk/gofacebook/v17/common"
+	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 type PageClient interface {

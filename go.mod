@@ -1,4 +1,4 @@
-module github.com/yudgnahk/facebook-graph-api
+module github.com/yudgnahk/gofacebook
 
 go 1.20
 

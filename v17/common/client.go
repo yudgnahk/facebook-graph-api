@@ -4,8 +4,8 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/yudgnahk/facebook-graph-api/v17/constants"
-	"github.com/yudgnahk/facebook-graph-api/v17/models"
+	"github.com/yudgnahk/gofacebook/v17/constants"
+	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 // Client is a client for the personal facebook API.

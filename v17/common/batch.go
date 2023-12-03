@@ -5,8 +5,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/yudgnahk/facebook-graph-api/v17/models"
 	httputils "github.com/yudgnahk/go-common-utils/http"
+	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 func (c *Client) BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error) {
