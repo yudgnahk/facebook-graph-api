@@ -48,19 +48,19 @@ func (c *pageClient) GetConversationsEndpoint() string {
 	return url
 }
 
-func (c *pageClient) GetConversationByID(conversationID string, fields ...models.GetConversationFields) (*models.GetConversationResponse, error) {
+func (c *pageClient) GetConversationByID(conversationID string, before, after *string) (*models.GetConversationResponse, error) {
 	url := c.PrepareUrl(fmt.Sprintf(constants.GetConversationEndpoint, conversationID), http.MethodGet)
 
-	if len(fields) > 0 {
-		paramStr := "fields=" + utils.SliceToString(fields)
+	if before != nil && after != nil {
+		return nil, errors.New("before and after can't be used together")
+	}
 
-		if strings.Contains(url, "?") {
-			url += "&"
-		} else {
-			url += "?"
-		}
+	if before != nil {
+		url += "&before=" + *before
+	}
 
-		url += paramStr
+	if after != nil {
+		url += "&after=" + *after
 	}
 
 	request, err := httputils.NewRequest(http.MethodGet, url, nil)
@@ -68,7 +68,27 @@ func (c *pageClient) GetConversationByID(conversationID string, fields ...models
 		return nil, err
 	}
 
+	fmt.Println("GetConversationByID: ", request.URL.String())
+
 	var response models.GetConversationResponse
+	err = httputils.Execute(request, &response)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &response, nil
+}
+
+func (c *pageClient) GetBasicConversationDataByID(conversationID string) (*models.GetBasicConversationDataResponse, error) {
+	url := c.PrepareUrl(fmt.Sprintf(constants.GetBasicConversationDataEndpoint, conversationID), http.MethodGet)
+
+	request, err := httputils.NewRequest(http.MethodGet, url, nil)
+	if err != nil {
+		return nil, err
+	}
+
+	var response models.GetBasicConversationDataResponse
 	err = httputils.Execute(request, &response)
 
 	if err != nil {

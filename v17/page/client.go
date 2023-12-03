@@ -7,11 +7,12 @@ import (
 
 type PageClient interface {
 	GetConversations(fields ...models.GetConversationsFields) (*models.GetConversationsResponse, error)
-	GetConversationByID(conversationID string, fields ...models.GetConversationFields) (*models.GetConversationResponse, error)
+	GetConversationByID(conversationID string, before, after *string) (*models.GetConversationResponse, error)
 	GetUser(userID string, fields ...models.GetUserField) (*models.GetUserResponse, error)
 	BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error)
 	GetConversationsEndpoint() string
 	SendMessage(recipientID string, message string) error
+	GetBasicConversationDataByID(conversationID string) (*models.GetBasicConversationDataResponse, error)
 }
 
 type pageClient struct {
