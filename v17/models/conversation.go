@@ -78,6 +78,7 @@ type GetConversationResponse struct {
 			Email string `json:"email"`
 			Id    string `json:"id"`
 		} `json:"from"`
+		CreatedTime string `json:"created_time"`
 		Message     string `json:"message"`
 		Attachments struct {
 			Data []struct {
