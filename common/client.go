@@ -1,11 +1,10 @@
 package common
 
 import (
+	"github.com/yudgnahk/gofacebook/constants"
+	"github.com/yudgnahk/gofacebook/models"
 	"net/http"
 	"strings"
-
-	"github.com/yudgnahk/gofacebook/v17/constants"
-	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 // Client is a client for the personal facebook API.

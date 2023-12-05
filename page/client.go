@@ -1,12 +1,13 @@
 package page
 
 import (
-	"github.com/yudgnahk/gofacebook/v17/common"
-	"github.com/yudgnahk/gofacebook/v17/models"
+	"github.com/yudgnahk/gofacebook/common"
+	"github.com/yudgnahk/gofacebook/models"
 )
 
 type PageClient interface {
-	GetConversations(fields ...models.GetConversationsFields) (*models.GetConversationsResponse, error)
+	GetConversations(limit *int, offset *int, before, after *string,
+		fields ...models.GetConversationsFields) (*models.GetConversationsResponse, error)
 	GetConversationByID(conversationID string, before, after *string) (*models.GetConversationResponse, error)
 	GetUser(userID string, fields ...models.GetUserField) (*models.GetUserResponse, error)
 	BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error)

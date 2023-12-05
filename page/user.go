@@ -2,13 +2,13 @@ package page
 
 import (
 	"fmt"
+	"github.com/yudgnahk/gofacebook/constants"
+	"github.com/yudgnahk/gofacebook/models"
 	"net/http"
 	"strings"
 
 	httputils "github.com/yudgnahk/go-common-utils/http"
 	"github.com/yudgnahk/gofacebook/utils"
-	"github.com/yudgnahk/gofacebook/v17/constants"
-	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 func (c *pageClient) GetUser(userID string, fields ...models.GetUserField) (*models.GetUserResponse, error) {

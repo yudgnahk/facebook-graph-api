@@ -6,28 +6,45 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"strings"
+
+	"github.com/yudgnahk/gofacebook/constants"
+	"github.com/yudgnahk/gofacebook/models"
 
 	httputils "github.com/yudgnahk/go-common-utils/http"
 	"github.com/yudgnahk/gofacebook/utils"
-	"github.com/yudgnahk/gofacebook/v17/constants"
-	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
-func (c *pageClient) GetConversations(fields ...models.GetConversationsFields) (*models.GetConversationsResponse, error) {
-	url := c.PrepareUrl(fmt.Sprintf(constants.GetConversationsEndpoint, c.UserID), http.MethodGet)
+func (c *pageClient) GetConversations(limit *int, offset *int, before, after *string,
+	fields ...models.GetConversationsFields) (*models.GetConversationsResponse, error) {
 
+	url := ""
 	if len(fields) > 0 {
+		url = "me/conversations?"
 		paramStr := "fields=" + utils.SliceToString(fields)
-
-		if strings.Contains(url, "?") {
-			url += "&"
-		} else {
-			url += "?"
-		}
-
 		url += paramStr
+	} else {
+		url = constants.GetConversationsEndpoint
 	}
+
+	if limit != nil {
+		url += "&limit=" + fmt.Sprintf("%v", *limit)
+	}
+
+	if offset != nil {
+		url += "&offset=" + fmt.Sprintf("%v", *offset)
+	}
+
+	if before != nil && after != nil {
+		return nil, errors.New("before and after can't be used together")
+	}
+
+	if before != nil {
+		url += "&before=" + *before
+	} else if after != nil {
+		url += "&after=" + *after
+	}
+
+	url = c.PrepareUrl(url, http.MethodGet)
 
 	request, err := httputils.NewRequest(http.MethodGet, url, nil)
 	if err != nil {
@@ -44,7 +61,7 @@ func (c *pageClient) GetConversations(fields ...models.GetConversationsFields) (
 }
 
 func (c *pageClient) GetConversationsEndpoint() string {
-	url := c.PrepareUrl(fmt.Sprintf(constants.GetConversationsEndpoint, c.UserID), http.MethodGet)
+	url := c.PrepareUrl(constants.GetConversationsEndpoint, http.MethodGet)
 	return url
 }
 
@@ -67,8 +84,6 @@ func (c *pageClient) GetConversationByID(conversationID string, before, after *s
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("GetConversationByID: ", request.URL.String())
 
 	var response models.GetConversationResponse
 	err = httputils.Execute(request, &response)

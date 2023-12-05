@@ -3,10 +3,10 @@ package common
 import (
 	"bytes"
 	"encoding/json"
+	"github.com/yudgnahk/gofacebook/models"
 	"net/http"
 
 	httputils "github.com/yudgnahk/go-common-utils/http"
-	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 func (c *Client) BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error) {

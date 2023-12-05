@@ -1,2 +1,4 @@
 github.com/yudgnahk/go-common-utils v0.0.2 h1:tOSNFRLJ3jIuaLsSVuF0u/HD5hKzLqoBN+ZIyiictlg=
 github.com/yudgnahk/go-common-utils v0.0.2/go.mod h1:oslWMW38T/Dv5lYikPuKg15E370/r8mfM36L0Pmsnzc=
+golang.org/x/exp v0.0.0-20231127185646-65229373498e h1:Gvh4YaCaXNs6dKTlfgismwWZKyjVZXwOPfIyUaqU3No=
+golang.org/x/exp v0.0.0-20231127185646-65229373498e/go.mod h1:iRJReGqOEeBhDZGkGbynYwcHlctCvnjTYIamk7uXpHI=

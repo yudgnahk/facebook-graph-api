@@ -3,9 +3,10 @@ package common
 import (
 	"net/http"
 
+	"github.com/yudgnahk/gofacebook/constants"
+	"github.com/yudgnahk/gofacebook/models"
+
 	httputils "github.com/yudgnahk/go-common-utils/http"
-	"github.com/yudgnahk/gofacebook/v17/constants"
-	"github.com/yudgnahk/gofacebook/v17/models"
 )
 
 func (c *Client) GetLongLivedTokenURL() string {
