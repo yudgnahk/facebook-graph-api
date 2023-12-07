@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"github.com/yudgnahk/gofacebook/models"
+	"github.com/yudgnahk/gofacebook/utils"
 	"net/http"
 
 	httputils "github.com/yudgnahk/go-common-utils/http"
@@ -26,8 +27,10 @@ func (c *Client) BatchRequest(requests []models.BatchRequest) ([]models.BatchRes
 		return nil, err
 	}
 
-	request.Header.Add("Content-Type", "application/json")
-	request.Header.Add("Authorization", "Bearer "+c.AccessToken)
+	utils.AddJsonHeader(request)
+	utils.AddHeaders(request, map[string]string{
+		"Authorization": "Bearer " + c.AccessToken,
+	})
 
 	var response []models.BatchResponse
 	err = httputils.Execute(request, &response)

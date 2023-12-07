@@ -72,49 +72,7 @@ type GetConversationsResponse struct {
 }
 
 type GetConversationResponse struct {
-	Data []struct {
-		From struct {
-			Name  string `json:"name"`
-			Email string `json:"email"`
-			Id    string `json:"id"`
-		} `json:"from"`
-		CreatedTime string `json:"created_time"`
-		Message     string `json:"message"`
-		Attachments struct {
-			Data []struct {
-				FileUrl   string `json:"file_url,omitempty"`
-				Id        string `json:"id"`
-				ImageData struct {
-					Width           int    `json:"width"`
-					Height          int    `json:"height"`
-					MaxWidth        int    `json:"max_width"`
-					MaxHeight       int    `json:"max_height"`
-					Url             string `json:"url"`
-					PreviewUrl      string `json:"preview_url"`
-					ImageType       int    `json:"image_type"`
-					RenderAsSticker bool   `json:"render_as_sticker"`
-				} `json:"image_data,omitempty"`
-				VideoData struct {
-					Width      int    `json:"width,omitempty"`
-					Height     int    `json:"height,omitempty"`
-					Length     int    `json:"length,omitempty"`
-					VideoType  int    `json:"video_type,omitempty"`
-					URL        string `json:"url,omitempty"`
-					PreviewURL string `json:"preview_url,omitempty"`
-					Rotation   int    `json:"rotation,omitempty"`
-				} `json:"video_data,omitempty"`
-			} `json:"data"`
-			Paging struct {
-				Cursors struct {
-					Before string `json:"before"`
-					After  string `json:"after"`
-				} `json:"cursors"`
-				Next string `json:"next"`
-			} `json:"paging"`
-		} `json:"attachments,omitempty"`
-		Id      string `json:"id"`
-		Sticker string `json:"sticker,omitempty"`
-	} `json:"data"`
+	Data   []MessageResponse `json:"data"`
 	Paging struct {
 		Cursors struct {
 			Before string `json:"before"`
@@ -122,6 +80,50 @@ type GetConversationResponse struct {
 		} `json:"cursors"`
 		Next string `json:"next"`
 	} `json:"paging"`
+}
+
+type MessageResponse struct {
+	From struct {
+		Name  string `json:"name"`
+		Email string `json:"email"`
+		Id    string `json:"id"`
+	} `json:"from"`
+	CreatedTime string `json:"created_time"`
+	Message     string `json:"message"`
+	Attachments struct {
+		Data []struct {
+			FileUrl   string `json:"file_url,omitempty"`
+			Id        string `json:"id"`
+			ImageData struct {
+				Width           int    `json:"width"`
+				Height          int    `json:"height"`
+				MaxWidth        int    `json:"max_width"`
+				MaxHeight       int    `json:"max_height"`
+				Url             string `json:"url"`
+				PreviewUrl      string `json:"preview_url"`
+				ImageType       int    `json:"image_type"`
+				RenderAsSticker bool   `json:"render_as_sticker"`
+			} `json:"image_data,omitempty"`
+			VideoData struct {
+				Width      int    `json:"width,omitempty"`
+				Height     int    `json:"height,omitempty"`
+				Length     int    `json:"length,omitempty"`
+				VideoType  int    `json:"video_type,omitempty"`
+				URL        string `json:"url,omitempty"`
+				PreviewURL string `json:"preview_url,omitempty"`
+				Rotation   int    `json:"rotation,omitempty"`
+			} `json:"video_data,omitempty"`
+		} `json:"data"`
+		Paging struct {
+			Cursors struct {
+				Before string `json:"before"`
+				After  string `json:"after"`
+			} `json:"cursors"`
+			Next string `json:"next"`
+		} `json:"paging"`
+	} `json:"attachments,omitempty"`
+	Id      string `json:"id"`
+	Sticker string `json:"sticker,omitempty"`
 }
 
 type GetBasicConversationDataResponse struct {
@@ -166,6 +168,39 @@ type SendMessageRequest struct {
 		ID string `json:"id"`
 	} `json:"recipient"`
 	Message struct {
-		Text string `json:"text"`
+		Text       string                 `json:"text,omitempty"`
+		Attachment *SendMessageAttachment `json:"attachment,omitempty"`
 	} `json:"message"`
+}
+
+type SendMessageAttachment struct {
+	Type    string                       `json:"type,omitempty"`
+	Payload SendMessageAttachmentPayload `json:"payload,omitempty"`
+}
+
+type SendMessageAttachmentPayload struct {
+	AttachmentID string `json:"attachment_id,omitempty"`
+}
+
+type SendMessageResponse struct {
+	RecipientID string `json:"recipient_id"`
+	MessageID   string `json:"message_id"`
+	Error       struct {
+		Message      string `json:"message"`
+		Type         string `json:"type"`
+		Code         int    `json:"code"`
+		ErrorSubcode int    `json:"error_subcode"`
+		FbtraceId    string `json:"fbtrace_id"`
+	} `json:"error"`
+}
+
+type GetMessageResponse struct {
+	Error struct {
+		Message      string `json:"message"`
+		Type         string `json:"type"`
+		Code         int    `json:"code"`
+		ErrorSubcode int    `json:"error_subcode"`
+		FbtraceId    string `json:"fbtrace_id"`
+	} `json:"error"`
+	MessageResponse
 }

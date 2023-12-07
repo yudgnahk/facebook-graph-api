@@ -12,8 +12,11 @@ type PageClient interface {
 	GetUser(userID string, fields ...models.GetUserField) (*models.GetUserResponse, error)
 	BatchRequest(requests []models.BatchRequest) ([]models.BatchResponse, error)
 	GetConversationsEndpoint() string
-	SendMessage(recipientID string, message string) error
+	SendMessage(recipientID string, message string) (*models.GetMessageResponse, error)
+	SendAttachment(recipientID string, attachmentID string) (*models.GetMessageResponse, error)
 	GetBasicConversationDataByID(conversationID string) (*models.GetBasicConversationDataResponse, error)
+	UploadImageByUrl(url string) (*models.UploadImageResponse, error)
+	GetMessageByID(messageID string) (*models.GetMessageResponse, error)
 }
 
 type pageClient struct {

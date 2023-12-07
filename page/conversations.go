@@ -113,35 +113,96 @@ func (c *pageClient) GetBasicConversationDataByID(conversationID string) (*model
 	return &response, nil
 }
 
-func (c *pageClient) SendMessage(recipientID string, message string) error {
+func (c *pageClient) SendMessage(recipientID string, message string) (*models.GetMessageResponse, error) {
 	url := c.PrepareUrl(constants.SendMessageEndpoint, http.MethodPost)
 
 	var req models.SendMessageRequest
 	req.Recipient.ID = recipientID
 	req.Message.Text = message
+	req.Message.Attachment = nil
 
 	if len(message) == 0 {
-		return errors.New("message can't be empty")
+		return nil, errors.New("message can't be empty")
 	}
 
 	// marshal request data
 	data, err := json.Marshal(req)
 	if err != nil {
-		return fmt.Errorf("error marshall request: %w", err)
+		return nil, fmt.Errorf("error marshall request: %w", err)
 	}
 
 	request, err := httputils.NewRequest(http.MethodPost, url, bytes.NewBuffer(data))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	request.Header.Add("Content-Type", "application/json")
+	utils.AddJsonHeader(request)
 
-	var response interface{}
+	var response models.SendMessageResponse
 	err = httputils.Execute(request, &response)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	if response.Error.Code != 0 {
+		return nil, errors.New(response.Error.Message)
+	}
+
+	messageResp, err := c.GetMessageByID(response.MessageID)
+	if err != nil {
+		return nil, err
+	}
+
+	if messageResp.Error.Code != 0 {
+		return nil, errors.New(messageResp.Error.Message)
+	}
+
+	return messageResp, nil
+}
+
+func (c *pageClient) SendAttachment(recipientID string, attachmentID string) (*models.GetMessageResponse, error) {
+	url := c.PrepareUrl(constants.SendMessageEndpoint, http.MethodPost)
+
+	var req models.SendMessageRequest
+	req.Recipient.ID = recipientID
+	req.Message.Attachment = &models.SendMessageAttachment{
+		Type: "image",
+		Payload: models.SendMessageAttachmentPayload{
+			AttachmentID: attachmentID,
+		},
+	}
+
+	// marshal request data
+	data, err := json.Marshal(req)
+	if err != nil {
+		return nil, fmt.Errorf("error marshall request: %w", err)
+	}
+
+	request, err := httputils.NewRequest(http.MethodPost, url, bytes.NewBuffer(data))
+	if err != nil {
+		return nil, err
+	}
+
+	utils.AddJsonHeader(request)
+
+	var response models.SendMessageResponse
+	err = httputils.Execute(request, &response)
+	if err != nil {
+		return nil, err
+	}
+
+	if response.Error.Code != 0 {
+		return nil, errors.New(response.Error.Message)
+	}
+
+	messageResp, err := c.GetMessageByID(response.MessageID)
+	if err != nil {
+		return nil, err
+	}
+
+	if messageResp.Error.Code != 0 {
+		return nil, errors.New(messageResp.Error.Message)
+	}
+
+	return messageResp, nil
 }

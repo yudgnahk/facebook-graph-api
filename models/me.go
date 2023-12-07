@@ -31,6 +31,13 @@ type GetLongLivedTokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	ExpiresIn   int    `json:"expires_in"`
+	Error       struct {
+		Message      string `json:"message"`
+		Type         string `json:"type"`
+		Code         int    `json:"code"`
+		ErrorSubcode int    `json:"error_subcode"`
+		FbtraceId    string `json:"fbtrace_id"`
+	} `json:"error"`
 }
 
 type BatchRequest struct {
